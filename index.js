@@ -73,7 +73,7 @@ ex User enters @botname framework, the bot will write back in markdown
 framework.hears('framework', function (bot) {
   console.log("framework command received");
   responded = true;
-  bot.say("markdown", "The primary purpose for the [webex-node-bot-framework](https://github.com/jpjpjp/webex-node-bot-framework) was to create a framework based on the [webex-jssdk](https://webex.github.io/webex-js-sdk) which continues to be supported as new features and functionality are added to Webex. This version of the proejct was designed with two themes in mind: \n\n\n * Mimimize Webex API Calls. The original flint could be quite slow as it attempted to provide bot developers rich details about the space, membership, message and message author. This version eliminates some of that data in the interests of efficiency, (but provides convenience methods to enable bot developers to get this information if it is required)\n * Leverage native Webex data types. The original flint would copy details from the webex objects such as message and person into various flint objects. This version simply attaches the native Webex objects. This increases the framework's efficiency and makes it future proof as new attributes are added to the various webex DTOs ");
+  bot.say("markdown", "This bot was created by Michael Snider (misnider@cisco.com) and Grace Sacco (grsacco@ciscoc.com). It was created for the 2020 Hackathon for Field Sales Engineer Interns. This bot contains uses such as seeing network scan statistics, automation of new hire onboarding, and contact resource automation. ");
 });
 
 /* On mention with command, using other trigger data, can use lite markdown formatting
@@ -136,8 +136,7 @@ framework.hears("say hi to everyone", function (bot) {
 });
 
 // Buttons & Cards data
-let cardJSON =
-{
+let cardJSON = {
   $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
   type: 'AdaptiveCard',
   version: '1.0',
@@ -174,115 +173,7 @@ let cardJSON =
         }]
     }]
 };
-
-/* On mention with card example
-ex User enters @botname 'card me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
-*/
-framework.hears('card me', function (bot, trigger) {
-  console.log("someone asked for a card");
-  responded = true;
-  let avatar = trigger.person.avatar;
-
-  cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
-  cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
-  cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
-  bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
-});
-
-/* On mention reply example
-ex User enters @botname 'reply' phrase, the bot will post a threaded reply
-*/
-framework.hears('reply', function (bot, trigger) {
-  console.log("someone asked for a reply.  We will give them two.");
-  responded = true;
-  bot.reply(trigger.message,
-    'This is threaded reply sent using the `bot.reply()` method.',
-    'markdown');
-  var msg_attach = {
-    text: "This is also threaded reply with an attachment sent via bot.reply(): ",
-    file: 'https://media2.giphy.com/media/dTJd5ygpxkzWo/giphy-downsized-medium.gif'
-  };
-  bot.reply(trigger.message, msg_attach);
-});
-
-
-
-/**
- * Run python script
- * @return {ChildProcess}
- */
-function runScript(){
-  return spawn('/Users/misnider/Documents/devnet/dne-security-code/venv/bin/python3', ["./threats.py"]);
-}
-
-/* On mention for threats
-ex User enters @botname 'threats' phrase, the bot will deliver the number of threats caught by AMP
-*/
-framework.hears('threats', function (bot, trigger) {
-  console.log("someone asked for threats");
-  responded = true;
-  const subprocess = runScript()
-  subprocess.stdout.on('data', (data) => {
-    threats = data.toString('utf8').split("|")
-    bot.say("Total amount of malware threats AMP has detected: " + threats[0]);
-    bot.say("Total amount of scans completed with no detections from AMP: " + threats[1]);
-    bot.say("Total amount of scans completed with detections from AMP: " + threats[2]);
-    bot.say("Total amount of threats AMP has detected: " + threats[3]);
-    bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
-  });
-  subprocess.stderr.on('data', (data) => {
-    console.log(`error: ${data}`);
-  });
-  subprocess.on('close', () => {
-  });
-
-  // let avatar = trigger.person.avatar;
-
-  // cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
-  // cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
-  // cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
-  // bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
-});
-
-framework.hears('new hire', function (bot, trigger) {
-  let personDisplayName = trigger.person.displayName;
-  let outputString = `The following new hire has begun their orientation: ${personDisplayName}`;
-  console.log(outputString);
-  responded = true;
-  bot.add('grsacco@cisco.com', false)
-  .catch(function(err) {
-    console.log(err.message);
-  });
-  bot.add('misnider@cisco.com', false)
-  .catch(function(err) {
-    console.log(err.message);
-  });
-  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training.');
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Please follow these links for NHO training",
-   attachments: cardBodyNHO
-  });
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Also, please tell us more about yourself:",
-   attachments: cardBody
-  });
- framework.on('attachmentAction', function (bot, trigger) {
-  bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
-  });
-});
-
-framework.hears('bosses', function (bot, trigger) {
-  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
-  console.log(bossResponse);
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Contacts within the Zeus Clothing Executive Leadership Team",
-   attachments: cardBodyBosses
-  });
-});
-
+// Buttons & Cards data for User Info Input
 let cardBody = {
       "type": "AdaptiveCard",
       "body": [
@@ -384,8 +275,8 @@ let cardBody = {
       ],
       "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
       "version": "1.2"
-}
-
+};
+// Buttons & Cards data for contacts to the ZELT
 let cardBodyBosses = {
     "type": "AdaptiveCard",
     "body": [
@@ -525,8 +416,8 @@ let cardBodyBosses = {
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "version": "1.2"
-}
-
+};
+// Buttons & Cards data for Training Links
 let cardBodyNHO = {
     "type": "AdaptiveCard",
     "body": [
@@ -628,11 +519,216 @@ let cardBodyNHO = {
     ],
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
     "version": "1.2"
+};
+
+/* On mention with card example
+ex User enters @botname 'card me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
+*/
+framework.hears('card me', function (bot, trigger) {
+  console.log("someone asked for a card");
+  responded = true;
+  let avatar = trigger.person.avatar;
+
+  cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
+  cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
+  cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
+  bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
+});
+
+/* On mention reply example
+ex User enters @botname 'reply' phrase, the bot will post a threaded reply
+*/
+framework.hears('reply', function (bot, trigger) {
+  console.log("someone asked for a reply.  We will give them two.");
+  responded = true;
+  bot.reply(trigger.message,
+    'This is threaded reply sent using the `bot.reply()` method.',
+    'markdown');
+  var msg_attach = {
+    text: "This is also threaded reply with an attachment sent via bot.reply(): ",
+    file: 'https://media2.giphy.com/media/dTJd5ygpxkzWo/giphy-downsized-medium.gif'
+  };
+  bot.reply(trigger.message, msg_attach);
+});
+
+
+
+/**
+ * Run python script
+ * @return {ChildProcess}
+ */
+function runScript(){
+  return spawn('/Users/misnider/Documents/devnet/dne-security-code/venv/bin/python3', ["./threats.py"]);
 }
 
-/* On mention with unexpected bot command
-   Its a good practice is to gracefully handle unexpected input
+/* On mention for threats
+ex User enters @botname 'threats' phrase, the bot will deliver the number of threats caught by AMP
 */
+framework.hears('threats', function (bot, trigger) {
+  console.log("someone asked for threats");
+  responded = true;
+  const subprocess = runScript()
+  subprocess.stdout.on('data', (data) => {
+    threats = data.toString('utf8').split("|")
+    bot.say("Total amount of malware threats AMP has detected: " + threats[0]);
+    bot.say("Total amount of scans completed with no detections from AMP: " + threats[1]);
+    bot.say("Total amount of scans completed with detections from AMP: " + threats[2]);
+    bot.say("Total amount of threats AMP has detected: " + threats[3]);
+    bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
+  });
+
+  threatsFirst = toString(threats[0]);
+  threatsSecond = toString(threats[1]);
+  threatsThird = toString(threats[2]);
+  threatsFourth = toString(threats[3]);
+  threatsFifth = toString(threats[4]);
+  let cardBodyThreats = {
+      "type": "AdaptiveCard",
+      "body": [
+          {
+              "type": "ColumnSet",
+              "columns": [
+                  {
+                      "type": "Column",
+                      "items": [
+                          {
+                              "type": "Image",
+                              "style": "Person",
+                              "url": "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
+                              "size": "Medium",
+                              "height": "50px"
+                          }
+                      ],
+                      "width": "auto"
+                  },
+                  {
+                      "type": "Column",
+                      "items": [
+                          {
+                              "type": "TextBlock",
+                              "text": "Cisco Advanced Malware Protection",
+                              "weight": "Lighter",
+                              "color": "Accent",
+                              "height": "stretch"
+                          }
+                      ],
+                      "width": "stretch"
+                  }
+              ]
+          },
+          {
+              "type": "TextBlock",
+              "text": "Total amount of malware threats detected:",
+              "color": "Accent"
+          },
+          {
+              "type": "TextBlock",
+              "text": "threatsFirst"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Total amount of scans completed with no detections:",
+              "spacing": "Medium",
+              "horizontalAlignment": "Left",
+              "color": "Accent"
+          },
+          {
+              "type": "TextBlock",
+              "text": "threatsSecond"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Total amount of scans completed with detections:",
+              "color": "Accent"
+          },
+          {
+              "type": "TextBlock",
+              "text": "threatsThird"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Total amount of threats AMP has detected:",
+              "color": "Accent"
+          },
+          {
+              "type": "TextBlock",
+              "text": "threatsFourth"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Total amount of threats quarantined:",
+              "color": "Accent"
+          },
+          {
+              "type": "TextBlock",
+              "text": "threatsFifth"
+          }
+      ],
+      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+      "version": "1.2"
+  };
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Network Scan Statistics",
+   attachments: cardBodyThreats
+  });
+
+  subprocess.stderr.on('data', (data) => {
+    console.log(`error: ${data}`);
+  });
+  subprocess.on('close', () => {
+  });
+
+
+
+
+  // let avatar = trigger.person.avatar;
+
+  // cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
+  // cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
+  // cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
+  // bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
+});
+
+framework.hears('new hire', function (bot, trigger) {
+  let personDisplayName = trigger.person.displayName;
+  let outputString = `The following new hire has begun their orientation: ${personDisplayName}`;
+  console.log(outputString);
+  responded = true;
+  bot.add('grsacco@cisco.com', false)
+  .catch(function(err) {
+    console.log(err.message);
+  });
+  bot.add('misnider@cisco.com', false)
+  .catch(function(err) {
+    console.log(err.message);
+  });
+  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training.');
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Please follow these links for NHO training",
+   attachments: cardBodyNHO
+  });
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Also, please tell us more about yourself:",
+   attachments: cardBody
+  });
+ framework.on('attachmentAction', function (bot, trigger) {
+  bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
+  });
+});
+
+framework.hears('ZELT', function (bot, trigger) {
+  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
+  console.log(bossResponse);
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Contacts within the Zeus Clothing Executive Leadership Team",
+   attachments: cardBodyBosses
+  });
+});
+
 framework.hears(/.*/, function (bot, trigger) {
   // This will fire for any input so only respond if we haven't already
   if (!responded) {
@@ -648,16 +744,16 @@ framework.hears(/.*/, function (bot, trigger) {
 
 function sendHelp(bot) {
   bot.say("markdown", 'These are the commands I can respond to:', '\n\n ' +
-    '1. **framework**   (learn more about the Webex Bot Framework) \n' +
-    '2. **info**  (get your personal details) \n' +
-    '3. **space**  (get details about this space) \n' +
-    '4. **card me** (a cool card!) \n' +
-    '5. **say hi to everyone** (everyone gets a greeting using a call to the Webex SDK) \n' +
-    '6. **reply** (have bot reply to your message) \n' +
-    '7. **help** (what you are reading now) \n ' +
-    '9. **threats** (send you the total number of malware threats detected) \n' +
-    '8 **new hire** (onboard yourself as a new member to the Zeus Clothing team) \n' +
-    '9. **ZELT** (see contacts from the Zeus Clothing Executive Leadership Team)');
+    '1. **framework**   (learn more about the Zeus Webex Bot framework) \n' +
+    '2. **threats** (send you network scan statistics) \n' +
+    '3. **new hire** (onboard yourself as a new member to the Zeus Clothing team) \n' +
+    '4. **ZELT** (see contacts from the Zeus Executive Leadership Team) \n' +
+    '5. **info**  (get your personal details) \n' +
+    '6. **space**  (get details about this space) \n' +
+    '7. **card me** (a cool card!) \n' +
+    '8. **say hi to everyone** (everyone gets a greeting using a call to the Webex SDK) \n' +
+    '9. **reply** (have bot reply to your message) \n' +
+    '10. **help** (what you are reading now)' );
 }
 
 
