@@ -91,6 +91,7 @@ framework.hears('info', function (bot, trigger) {
 /* On mention with bot data
 ex User enters @botname 'space' phrase, the bot will provide details about that particular space
 */
+
 framework.hears('space', function (bot) {
   console.log("space. the final frontier");
   responded = true;
@@ -216,6 +217,30 @@ framework.hears(/.*/, function (bot, trigger) {
   responded = false;
 });
 
+framework.hears('newhire', function (bot, trigger) {
+  let personDisplayName = trigger.person.displayName;
+  let outputString = `The following new hire has begun their orientation: ${personDisplayName}`;
+  console.log(outputString);
+  responded = true;
+  bot.add('grsacco@cisco.com', true)
+  .catch(function(err) {
+    console.log(err.message);
+  });
+  bot.add('misnider@cisco.com', true)
+  .catch(function(err) {
+    console.log(err.message);
+  });
+  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n\n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation.');
+  var msg_attach = {
+    text: "The following trainings need to be completed before you recieve your first pay check.",
+    file: 'https://www.itpatraining.com/Responsible_Social_Networking',
+    file: 'https://whizbangtraining.com/retail-selling-videos/',
+    file: 'https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada'
+  };
+  bot.reply(trigger.message, msg_attach);
+});
+
+
 function sendHelp(bot) {
   bot.say("markdown", 'These are the commands I can respond to:', '\n\n ' +
     '1. **framework**   (learn more about the Webex Bot Framework) \n' +
@@ -224,7 +249,8 @@ function sendHelp(bot) {
     '4. **card me** (a cool card!) \n' +
     '5. **say hi to everyone** (everyone gets a greeting using a call to the Webex SDK) \n' +
     '6. **reply** (have bot reply to your message) \n' +
-    '7. **help** (what you are reading now)');
+    '7. **help** (what you are reading now) \n ' +
+    '8 **newhire** (onboard yourself as a new member to the Zeus Clothing team)');
 }
 
 
