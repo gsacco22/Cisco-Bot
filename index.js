@@ -230,7 +230,7 @@ framework.hears('threats', function (bot, trigger) {
   });
   subprocess.on('close', () => {
   });
-  
+
   // let avatar = trigger.person.avatar;
 
   // cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
@@ -239,28 +239,391 @@ framework.hears('threats', function (bot, trigger) {
   // bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
 
-framework.hears('newhire', function (bot, trigger) {
+framework.hears('new hire', function (bot, trigger) {
   let personDisplayName = trigger.person.displayName;
   let outputString = `The following new hire has begun their orientation: ${personDisplayName}`;
   console.log(outputString);
   responded = true;
-  bot.add('grsacco@cisco.com', true)
+  bot.add('grsacco@cisco.com', false)
   .catch(function(err) {
     console.log(err.message);
   });
-  bot.add('misnider@cisco.com', true)
+  bot.add('misnider@cisco.com', false)
   .catch(function(err) {
     console.log(err.message);
   });
-  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n\n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation.');
-  var msg_attach = {
-    text: "The following trainings need to be completed before you recieve your first pay check.",
-    file: 'https://www.itpatraining.com/Responsible_Social_Networking',
-    file: 'https://whizbangtraining.com/retail-selling-videos/',
-    file: 'https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada'
-  };
-  bot.reply(trigger.message, msg_attach);
+  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training.');
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Please follow these links for NHO training",
+   attachments: cardBodyNHO
+  });
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Also, please tell us more about yourself:",
+   attachments: cardBody
+  });
+ framework.on('attachmentAction', function (bot, trigger) {
+  bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
+  });
 });
+
+framework.hears('bosses', function (bot, trigger) {
+  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
+  console.log(bossResponse);
+  bot.sendCard({
+   // Fallback text for clients that don't render cards
+   markdown: "Contacts within the Zeus Clothing Executive Leadership Team",
+   attachments: cardBodyBosses
+  });
+});
+
+let cardBody = {
+      "type": "AdaptiveCard",
+      "body": [
+          {
+              "type": "ColumnSet",
+              "columns": [
+                  {
+                      "type": "Column",
+                      "items": [
+                          {
+                              "type": "TextBlock",
+                              "text": "New Hire Orientation - Zeus Clothing Stores",
+                              "horizontalAlignment": "Center",
+                              "wrap": true,
+                              "color": "Accent",
+                              "size": "Large",
+                              "spacing": "Small",
+                              "weight": "Bolder"
+                          },
+                          {
+                              "type": "TextBlock",
+                              "text": "Please enter your full name."
+                          },
+                          {
+                              "type": "Input.Text",
+                              "placeholder": "Jane Doe "
+                          },
+                          {
+                              "type": "TextBlock",
+                              "text": "Please enter your permanent address.",
+                              "wrap": true
+                          },
+                          {
+                              "type": "Input.Text",
+                              "placeholder": "123 Cisco Ave, Raleigh NC, 27513"
+                          }
+                      ],
+                      "width": "stretch"
+                  }
+              ]
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter your cell phone number. "
+          },
+          {
+              "type": "Input.Text",
+              "placeholder": "123 456 7890"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter your home phone number. "
+          },
+          {
+              "type": "Input.Text",
+              "placeholder": "123 456 7890"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter your date of birth. (MMDDYYYY)"
+          },
+          {
+              "type": "Input.Date"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter the name of your emergency contact. "
+          },
+          {
+              "type": "Input.Text",
+              "placeholder": "John Doe"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter your relationship to the emergency contact."
+          },
+          {
+              "type": "Input.Text",
+              "placeholder": "Mother"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please enter your emergency contact's cell phone number."
+          },
+          {
+              "type": "Input.Text",
+              "placeholder": "123 456 7890"
+          },
+          {
+              "type": "TextBlock",
+              "text": "Please confirm that you have finished your NHO training."
+          },
+          {
+              "type": "Input.Toggle",
+              "title": "Please check the box to the left to confirm.",
+              "value": "false",
+              "wrap": false
+          }
+      ],
+      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+      "version": "1.2"
+}
+
+let cardBodyBosses = {
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "weight": "Bolder",
+                            "text": "Zeus Clothing's Executive Leadership Team Contacts",
+                            "horizontalAlignment": "Center",
+                            "wrap": true,
+                            "color": "Light",
+                            "size": "Large",
+                            "spacing": "Small"
+                        }
+                    ],
+                    "width": "stretch"
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "text": "Zachary Seinfeld",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://media-exp1.licdn.com/dms/image/C5603AQGxU9GrYrE6BA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jqKnSRzyMhuy2xSy8suFbxTVaIR-MWWIpz0rnXbZae8",
+            "size": "Medium",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "LinkedIn",
+                    "url": "https://www.linkedin.com/in/zachary-seinfeld-4572ba16a/"
+                },
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "ZEC",
+                    "url": "https://directory.cisco.com/dir/details/zseinfel"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Sam Wosika",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://www.uwstout.edu/sites/default/files/inline-images/wosika%2Csam1a.jpg",
+            "horizontalAlignment": "Center",
+            "size": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "LinkedIn",
+                    "url": "https://www.linkedin.com/in/samuel-wosika/"
+                },
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "ZEC",
+                    "url": "https://directory.cisco.com/dir/details/swosika"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Danielle Stacy",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://media-exp1.licdn.com/dms/image/C4D03AQFhHVgYyCn3ug/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=5-fSPL8S_Y70NIvGj4IVjIgObKgXJXnvJC7so2K8L0Q",
+            "horizontalAlignment": "Center",
+            "size": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "LinkedIn",
+                    "url": "https://www.linkedin.com/in/danielle-stacy/"
+                },
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "ZEC",
+                    "url": "https://directory.cisco.com/dir/details/dastacy"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Sonny Malick",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://media-exp1.licdn.com/dms/image/C4E03AQGS7mkMd2oHLg/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=8Ex9jWybo9WGiSpHMBcogGYAQNYu1jwGwagl0hE6-Xw",
+            "horizontalAlignment": "Center",
+            "size": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "LinkedIn",
+                    "url": "https://www.linkedin.com/in/sonny-malick-5700a8b6/"
+                },
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "ZEC",
+                    "url": "https://directory.cisco.com/dir/reports/somalick"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2"
+}
+
+let cardBodyNHO = {
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "weight": "Bolder",
+                            "text": "NHO Training",
+                            "horizontalAlignment": "Center",
+                            "wrap": true,
+                            "size": "ExtraLarge",
+                            "spacing": "Small"
+                        }
+                    ],
+                    "width": "stretch"
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": 65,
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Must be completed prior to first paycheck",
+                            "color": "Light",
+                            "spacing": "Small",
+                            "horizontalAlignment": "Center"
+                        },
+                        {
+                            "type": "Image",
+                            "altText": "",
+                            "url": "https://s3.amazonaws.com/tinycards/image/98d84c9c624b3576d978c827d0780798",
+                            "size": "Medium",
+                            "horizontalAlignment": "Center"
+                        },
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.OpenUrl",
+                                    "title": "Responsible Social Media and Social Networking Training",
+                                    "url": "https://www.itpatraining.com/Responsible_Social_Networking"
+                                }
+                            ],
+                            "id": "Responsible Social Media and Social Networking ",
+                            "horizontalAlignment": "Center"
+                        }
+                    ]
+                }
+            ],
+            "spacing": "Padding",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://lh3.googleusercontent.com/proxy/eekWkMsMmLsOeKXqsyQptmv9uGJx-WDxGUH2ZNuxbUyq2seV8P4wAatz3CqfsVFpatHUtHUEktTBurHlH669zlugyRws5CpKKDtvaPPt4TGXT8idfAGEBCN8xYrvEmj6B7LCWA2BeWxKY5Q",
+            "horizontalAlignment": "Center",
+            "size": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "Retail Sales Training",
+                    "url": "https://whizbangtraining.com/retail-selling-videos/"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "Image",
+            "altText": "",
+            "url": "https://s3.amazonaws.com/tinycards/image/d8a6c3a4abdd2935828d078c06a61655",
+            "size": "Medium",
+            "horizontalAlignment": "Center"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.OpenUrl",
+                    "title": "Professionalism Training",
+                    "url": "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2"
+}
 
 /* On mention with unexpected bot command
    Its a good practice is to gracefully handle unexpected input
@@ -287,7 +650,9 @@ function sendHelp(bot) {
     '5. **say hi to everyone** (everyone gets a greeting using a call to the Webex SDK) \n' +
     '6. **reply** (have bot reply to your message) \n' +
     '7. **help** (what you are reading now) \n ' +
-    '8 **newhire** (onboard yourself as a new member to the Zeus Clothing team)');
+    '9. **threats** (send you the total number of malware threats detected) \n' +
+    '8 **new hire** (onboard yourself as a new member to the Zeus Clothing team) \n' +
+    '9. **ZELT** (see contacts from the Zeus Clothing Executive Leadership Team)');
 }
 
 
