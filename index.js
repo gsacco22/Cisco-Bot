@@ -8,6 +8,8 @@ var app = express();
 app.use(bodyParser.json());
 app.use(express.static('images'));
 const config = require("./config.json");
+const {spawn} = require('child_process')
+const path = require('path')
 
 // init framework
 var framework = new framework(config);
@@ -200,6 +202,40 @@ framework.hears('reply', function (bot, trigger) {
     file: 'https://media2.giphy.com/media/dTJd5ygpxkzWo/giphy-downsized-medium.gif'
   };
   bot.reply(trigger.message, msg_attach);
+});
+
+
+
+/**
+ * Run python script
+ * @return {ChildProcess}
+ */
+function runScript(){
+  return spawn('/Users/misnider/Documents/devnet/dne-security-code/venv/bin/python3', ["./threats.py"]);
+}
+
+/* On mention for threats
+ex User enters @botname 'threats' phrase, the bot will deliver the number of threats caught by AMP
+*/
+framework.hears('threats', function (bot, trigger) {
+  console.log("someone asked for threats");
+  responded = true;
+  const subprocess = runScript()
+  subprocess.stdout.on('data', (data) => {
+    bot.say("Total amount of malware threats AMP has detected: " + data);
+  });
+  subprocess.stderr.on('data', (data) => {
+    console.log(`error: ${data}`);
+  });
+  subprocess.on('close', () => {
+  });
+  
+  // let avatar = trigger.person.avatar;
+
+  // cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
+  // cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
+  // cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
+  // bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
 
 /* On mention with unexpected bot command
