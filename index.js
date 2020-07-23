@@ -239,20 +239,6 @@ framework.hears('threats', function (bot, trigger) {
   // bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
 
-/* On mention with unexpected bot command
-   Its a good practice is to gracefully handle unexpected input
-*/
-framework.hears(/.*/, function (bot, trigger) {
-  // This will fire for any input so only respond if we haven't already
-  if (!responded) {
-    console.log(`catch-all handler fired for user input: ${trigger.text}`);
-    bot.say(`Sorry, I don't know how to respond to "${trigger.text}"`)
-      .then(() => sendHelp(bot))
-      .catch((e) => console.error(`Problem in the unexepected command hander: ${e.message}`));
-  }
-  responded = false;
-});
-
 framework.hears('newhire', function (bot, trigger) {
   let personDisplayName = trigger.person.displayName;
   let outputString = `The following new hire has begun their orientation: ${personDisplayName}`;
@@ -275,6 +261,21 @@ framework.hears('newhire', function (bot, trigger) {
   };
   bot.reply(trigger.message, msg_attach);
 });
+
+/* On mention with unexpected bot command
+   Its a good practice is to gracefully handle unexpected input
+*/
+framework.hears(/.*/, function (bot, trigger) {
+  // This will fire for any input so only respond if we haven't already
+  if (!responded) {
+    console.log(`catch-all handler fired for user input: ${trigger.text}`);
+    bot.say(`Sorry, I don't know how to respond to "${trigger.text}"`)
+      .then(() => sendHelp(bot))
+      .catch((e) => console.error(`Problem in the unexepected command hander: ${e.message}`));
+  }
+  responded = false;
+});
+
 
 
 function sendHelp(bot) {
