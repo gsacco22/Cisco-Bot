@@ -288,8 +288,8 @@ let cardBody = {
 // Buttons & Cards data for contacts to the ZELT
 let cardBodyBosses = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+    type: 'AdaptiveCard',
     version: "1.2",
-    type: "AdaptiveCard",
     body: [
         {
             type: "ColumnSet",
@@ -479,53 +479,51 @@ let cardBodyNHO = {
                                 }
                             ],
                             id: "Responsible Social Media and Social Networking ",
-                            "horizontalAlignment": "Center"
+                            horizontalAlignment: "Center"
                         }
                     ]
                 }
             ],
-            "spacing": "Padding",
-            "horizontalAlignment": "Center"
+            spacing: "Padding",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://lh3.googleusercontent.com/proxy/eekWkMsMmLsOeKXqsyQptmv9uGJx-WDxGUH2ZNuxbUyq2seV8P4wAatz3CqfsVFpatHUtHUEktTBurHlH669zlugyRws5CpKKDtvaPPt4TGXT8idfAGEBCN8xYrvEmj6B7LCWA2BeWxKY5Q",
-            "horizontalAlignment": "Center",
-            "size": "Medium"
+            type: "Image",
+            altText: "",
+            url: "https://lh3.googleusercontent.com/proxy/eekWkMsMmLsOeKXqsyQptmv9uGJx-WDxGUH2ZNuxbUyq2seV8P4wAatz3CqfsVFpatHUtHUEktTBurHlH669zlugyRws5CpKKDtvaPPt4TGXT8idfAGEBCN8xYrvEmj6B7LCWA2BeWxKY5Q",
+            horizontalAlignment: "Center",
+            size: "Medium"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "Retail Sales Training",
-                    "url": "https://whizbangtraining.com/retail-selling-videos/"
+                    type: "Action.OpenUrl",
+                    title: "Retail Sales Training",
+                    url: "https://whizbangtraining.com/retail-selling-videos/"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://s3.amazonaws.com/tinycards/image/d8a6c3a4abdd2935828d078c06a61655",
-            "size": "Medium",
-            "horizontalAlignment": "Center"
+            type: "Image",
+            altText: "",
+            url: "https://s3.amazonaws.com/tinycards/image/d8a6c3a4abdd2935828d078c06a61655",
+            size: "Medium",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "Professionalism Training",
-                    "url": "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
+                    type: "Action.OpenUrl",
+                    title: "Professionalism Training",
+                    url: "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         }
     ],
-    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.2"
 };
 
 /* On mention with card example
@@ -614,13 +612,8 @@ framework.hears('new hire', function (bot, trigger) {
     console.log(err.message);
   });
   bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training.');
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Please follow these links for NHO training",
-   attachments: cardBodyNHO
-  });
-  bot.sendCard(cardBody, 'Please fill this out.');
-
+  bot.sendCard(cardBodyNHO, 'This is customizable fallback text for clients that do not support buttons & cards');
+  bot.sendCard(cardBody, 'This is customizable fallback text for clients that do not support buttons & cards');
  framework.on('attachmentAction', function (bot, trigger) {
   bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
   });
@@ -629,7 +622,8 @@ framework.hears('new hire', function (bot, trigger) {
 framework.hears('ZELT', function (bot, trigger) {
   let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
   console.log(bossResponse);
-    bot.sendCard(cardBodyBosses, 'Contacts...');
+  responded = true;
+  bot.sendCard(cardBodyBosses, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
 
 framework.hears(/.*/, function (bot, trigger) {
