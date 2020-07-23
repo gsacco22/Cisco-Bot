@@ -621,6 +621,8 @@ framework.hears('new hire', function (bot, trigger) {
 
 framework.hears('ZELT', function (bot, trigger) {
   responded = true;
+  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${trigger.person.displayName}`;
+  console.log(bossResponse);
   bot.sendCard(cardBodyBosses, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
 
