@@ -223,7 +223,12 @@ framework.hears('threats', function (bot, trigger) {
   responded = true;
   const subprocess = runScript()
   subprocess.stdout.on('data', (data) => {
-    bot.say("Total amount of malware threats AMP has detected: " + data);
+    threats = data.toString('utf8').split("|")
+    bot.say("Total amount of malware threats AMP has detected: " + threats[0]);
+    bot.say("Total amount of scans completed with no detections from AMP: " + threats[1]);
+    bot.say("Total amount of scans completed with detections from AMP: " + threats[2]);
+    bot.say("Total amount of threats AMP has detected: " + threats[3]);
+    bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
   });
   subprocess.stderr.on('data', (data) => {
     console.log(`error: ${data}`);

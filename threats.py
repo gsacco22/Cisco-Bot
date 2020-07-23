@@ -47,9 +47,26 @@ if __name__ == "__main__":
     #TODO: Enter the specific event you are interested in to find from the result Hint: malware execute event id is 1107296272
     # Hint: Create a variable "malware_event_id" assign the malware execute event id 
     malware_event_id = 1107296272
-    count = 0
+    scan_completed_no_detection_id = 554696715
+    scan_completed_w_detection_id = 1091567628
+    threat_detected_id = 1090519054
+    threat_quar_id = 553648143
+
+    c1 = 0
+    c2 = 0
+    c3 = 0
+    c4 = 0
+    c5 = 0
     for event in amp_events:
         if event["event_type_id"] == malware_event_id:
-            count=count+1
+            c1=c1+1
+        elif event["event_type_id"] == scan_completed_no_detection_id:
+            c2=c2+1
+        elif event["event_type_id"] == scan_completed_w_detection_id:
+            c3=c3+1
+        elif event["event_type_id"] == threat_detected_id:
+            c4=c4+1
+        elif event["event_type_id"] == threat_quar_id:
+            c5=c5+1
             
-    print(count)
+    print(str(c1) + "|" + str(c2) + "|" + str(c3)+ "|" + str(c4)+ "|" + str(c5))
