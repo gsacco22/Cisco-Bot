@@ -27,6 +27,7 @@ framework.on('spawn', (bot, id, actorId) => {
     // spammed every time your server is restarted
     console.log(`While starting up, the framework found our bot in a space called: ${bot.room.title}`);
   } else {
+    console.log("Started correctly!")
     bot.say('Hi there, you can say hello to me.  Don\'t forget you need to mention me in a group space!');
     // When actorId is present it means someone added your bot got added to a new space
     // Lets find out more about them..
