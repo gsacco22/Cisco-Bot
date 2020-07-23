@@ -474,11 +474,11 @@ let cardBodyNHO = {
                             actions: [
                                 {
                                     type: "Action.OpenUrl",
-                                    title": "Responsible Social Media and Social Networking Training",
-                                    "url": "https://www.itpatraining.com/Responsible_Social_Networking"
+                                    title: "Responsible Social Media and Social Networking Training",
+                                    url: "https://www.itpatraining.com/Responsible_Social_Networking"
                                 }
                             ],
-                            "id": "Responsible Social Media and Social Networking ",
+                            id: "Responsible Social Media and Social Networking ",
                             "horizontalAlignment": "Center"
                         }
                     ]
@@ -619,11 +619,8 @@ framework.hears('new hire', function (bot, trigger) {
    markdown: "Please follow these links for NHO training",
    attachments: cardBodyNHO
   });
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Also, please tell us more about yourself:",
-   attachments: cardBody
-  });
+  bot.sendCard(cardBody, 'Please fill this out.');
+
  framework.on('attachmentAction', function (bot, trigger) {
   bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
   });
@@ -632,11 +629,7 @@ framework.hears('new hire', function (bot, trigger) {
 framework.hears('ZELT', function (bot, trigger) {
   let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
   console.log(bossResponse);
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Contacts within the Zeus Clothing Executive Leadership Team",
-   attachments: cardBodyBosses
-  });
+    bot.sendCard(cardBodyBosses, 'Contacts...');
 });
 
 framework.hears(/.*/, function (bot, trigger) {
