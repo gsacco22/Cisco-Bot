@@ -175,299 +175,306 @@ let cardJSON = {
 };
 // Buttons & Cards data for User Info Input
 let cardBody = {
-      "type": "AdaptiveCard",
-      "body": [
-          {
-              "type": "ColumnSet",
-              "columns": [
-                  {
-                      "type": "Column",
-                      "items": [
-                          {
-                              "type": "TextBlock",
-                              "text": "New Hire Orientation - Zeus Clothing Stores",
-                              "horizontalAlignment": "Center",
-                              "wrap": true,
-                              "color": "Accent",
-                              "size": "Large",
-                              "spacing": "Small",
-                              "weight": "Bolder"
-                          },
-                          {
-                              "type": "TextBlock",
-                              "text": "Please enter your full name."
-                          },
-                          {
-                              "type": "Input.Text",
-                              "placeholder": "Jane Doe "
-                          },
-                          {
-                              "type": "TextBlock",
-                              "text": "Please enter your permanent address.",
-                              "wrap": true
-                          },
-                          {
-                              "type": "Input.Text",
-                              "placeholder": "123 Cisco Ave, Raleigh NC, 27513"
-                          }
-                      ],
-                      "width": "stretch"
-                  }
-              ]
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter your cell phone number. "
-          },
-          {
-              "type": "Input.Text",
-              "placeholder": "123 456 7890"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter your home phone number. "
-          },
-          {
-              "type": "Input.Text",
-              "placeholder": "123 456 7890"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter your date of birth. (MMDDYYYY)"
-          },
-          {
-              "type": "Input.Date"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter the name of your emergency contact. "
-          },
-          {
-              "type": "Input.Text",
-              "placeholder": "John Doe"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter your relationship to the emergency contact."
-          },
-          {
-              "type": "Input.Text",
-              "placeholder": "Mother"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please enter your emergency contact's cell phone number."
-          },
-          {
-              "type": "Input.Text",
-              "placeholder": "123 456 7890"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Please confirm that you have finished your NHO training."
-          },
-          {
-              "type": "Input.Toggle",
-              "title": "Please check the box to the left to confirm.",
-              "value": "false",
-              "wrap": false
-          }
-      ],
-      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-      "version": "1.2"
+  $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+  version: "1.2",
+  type: "AdaptiveCard",
+  body: [
+    {
+        type: "ColumnSet",
+        columns: [
+            {
+                type: "Column",
+                items: [
+                    {
+                        type: "TextBlock",
+                        text: "New Hire Orientation - Zeus Clothing Stores",
+                        horizontalAlignment: "Center",
+                        wrap: true,
+                        color: "Accent",
+                        size: "Large",
+                        spacing: "Small",
+                        weight: "Bolder"
+                    },
+                    {
+                        type: "TextBlock",
+                        text: "Please enter your full name."
+                    },
+                    {
+                        type: "Input.Text",
+                        placeholder: "Jane Doe ",
+                        id: "FullName"
+                    },
+                    {
+                        type: "TextBlock",
+                        text: "Please enter your permanent address.",
+                        wrap: true
+                    },
+                    {
+                        type: "Input.Text",
+                        placeholder: "123 Cisco Ave, Raleigh NC, 27513",
+                        id: "Address"
+                    }
+                ],
+                width: "stretch"
+            }
+        ]
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter your cell phone number. "
+    },
+    {
+        type: "Input.Text",
+        placeholder: "123 456 7890",
+        id: "CellPhoneNumber"
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter your home phone number. "
+    },
+    {
+        type: "Input.Text",
+        placeholder: "123 456 7890",
+        id: "HomePhoneNumber"
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter your date of birth. (MMDDYYYY)"
+    },
+    {
+        type: "Input.Date",
+        id: "Birthdate"
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter the name of your emergency contact. "
+    },
+    {
+        type: "Input.Text",
+        placeholder: "John Doe",
+        id: "NameEmergencyContact"
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter your relationship to the emergency contact."
+    },
+    {
+        type: "Input.Text",
+        placeholder: "Mother",
+        id: "RelationshipEmergencyContact"
+    },
+    {
+        type: "TextBlock",
+        text: "Please enter your emergency contact's cell phone number."
+    },
+    {
+        type: "Input.Text",
+        placeholder: "123 456 7890",
+        id: "EmergencyContactPhone"
+    },
+    {
+        type: "TextBlock",
+        text: "Please confirm that you have finished your NHO training."
+    },
+    {
+        type: "Input.Toggle",
+        title: "Please check the box to the left to confirm.",
+        value: "false",
+        id: "ConfirmNHO"
+    }
+],
 };
+
 // Buttons & Cards data for contacts to the ZELT
 let cardBodyBosses = {
-    "type": "AdaptiveCard",
-    "body": [
+    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+    version: "1.2",
+    type: "AdaptiveCard",
+    body: [
         {
-            "type": "ColumnSet",
-            "columns": [
+            type: "ColumnSet",
+            columns: [
                 {
-                    "type": "Column",
-                    "items": [
+                    type: "Column",
+                    items: [
                         {
-                            "type": "TextBlock",
-                            "weight": "Bolder",
-                            "text": "Zeus Clothing's Executive Leadership Team Contacts",
-                            "horizontalAlignment": "Center",
-                            "wrap": true,
-                            "color": "Light",
-                            "size": "Large",
-                            "spacing": "Small"
+                            type: "TextBlock",
+                            weight: "Bolder",
+                            text: "Zeus Clothing's Executive Leadership Team Contacts",
+                            horizontalAlignment: "Center",
+                            wrap: true,
+                            color: "Light",
+                            size: "Large",
+                            spacing: "Small"
                         }
                     ],
-                    "width": "stretch"
+                    width: "stretch"
                 }
             ]
         },
         {
-            "type": "TextBlock",
-            "text": "Zachary Seinfeld",
-            "horizontalAlignment": "Center"
+            type: "TextBlock",
+            text: "Zachary Seinfeld",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://media-exp1.licdn.com/dms/image/C5603AQGxU9GrYrE6BA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jqKnSRzyMhuy2xSy8suFbxTVaIR-MWWIpz0rnXbZae8",
-            "size": "Medium",
-            "horizontalAlignment": "Center"
+            type: "Image",
+            url: "https://media-exp1.licdn.com/dms/image/C5603AQGxU9GrYrE6BA/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=jqKnSRzyMhuy2xSy8suFbxTVaIR-MWWIpz0rnXbZae8",
+            size: "Medium",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "LinkedIn",
-                    "url": "https://www.linkedin.com/in/zachary-seinfeld-4572ba16a/"
+                    type: "Action.OpenUrl",
+                    title: "LinkedIn",
+                    url: "https://www.linkedin.com/in/zachary-seinfeld-4572ba16a/"
                 },
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "ZEC",
-                    "url": "https://directory.cisco.com/dir/details/zseinfel"
+                    type: "Action.OpenUrl",
+                    title: "ZEC",
+                    url: "https://directory.cisco.com/dir/details/zseinfel"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         },
         {
-            "type": "TextBlock",
-            "text": "Sam Wosika",
-            "horizontalAlignment": "Center"
+            type: "TextBlock",
+            text: "Sam Wosika",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://www.uwstout.edu/sites/default/files/inline-images/wosika%2Csam1a.jpg",
-            "horizontalAlignment": "Center",
-            "size": "Medium"
+            type: "Image",
+            url: "https://www.uwstout.edu/sites/default/files/inline-images/wosika%2Csam1a.jpg",
+            horizontalAlignment: "Center",
+            size: "Medium"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "LinkedIn",
-                    "url": "https://www.linkedin.com/in/samuel-wosika/"
+                    type: "Action.OpenUrl",
+                    title: "LinkedIn",
+                    url: "https://www.linkedin.com/in/samuel-wosika/"
                 },
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "ZEC",
-                    "url": "https://directory.cisco.com/dir/details/swosika"
+                    type: "Action.OpenUrl",
+                    title: "ZEC",
+                    url: "https://directory.cisco.com/dir/details/swosika"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         },
         {
-            "type": "TextBlock",
-            "text": "Danielle Stacy",
-            "horizontalAlignment": "Center"
+            type: "TextBlock",
+            text: "Danielle Stacy",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://media-exp1.licdn.com/dms/image/C4D03AQFhHVgYyCn3ug/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=5-fSPL8S_Y70NIvGj4IVjIgObKgXJXnvJC7so2K8L0Q",
-            "horizontalAlignment": "Center",
-            "size": "Medium"
+            type: "Image",
+            url: "https://media-exp1.licdn.com/dms/image/C4D03AQFhHVgYyCn3ug/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=5-fSPL8S_Y70NIvGj4IVjIgObKgXJXnvJC7so2K8L0Q",
+            horizontalAlignment: "Center",
+            size: "Medium"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "LinkedIn",
-                    "url": "https://www.linkedin.com/in/danielle-stacy/"
+                    type: "Action.OpenUrl",
+                    title: "LinkedIn",
+                    url: "https://www.linkedin.com/in/danielle-stacy/"
                 },
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "ZEC",
-                    "url": "https://directory.cisco.com/dir/details/dastacy"
+                    type: "Action.OpenUrl",
+                    title: "ZEC",
+                    url: "https://directory.cisco.com/dir/details/dastacy"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         },
         {
-            "type": "TextBlock",
-            "text": "Sonny Malick",
-            "horizontalAlignment": "Center"
+            type: "TextBlock",
+            text: "Sonny Malick",
+            horizontalAlignment: "Center"
         },
         {
-            "type": "Image",
-            "altText": "",
-            "url": "https://media-exp1.licdn.com/dms/image/C4E03AQGS7mkMd2oHLg/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=8Ex9jWybo9WGiSpHMBcogGYAQNYu1jwGwagl0hE6-Xw",
-            "horizontalAlignment": "Center",
-            "size": "Medium"
+            type: "Image",
+            url: "https://media-exp1.licdn.com/dms/image/C4E03AQGS7mkMd2oHLg/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=8Ex9jWybo9WGiSpHMBcogGYAQNYu1jwGwagl0hE6-Xw",
+            horizontalAlignment: "Center",
+            size: "Medium"
         },
         {
-            "type": "ActionSet",
-            "actions": [
+            type: "ActionSet",
+            actions: [
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "LinkedIn",
-                    "url": "https://www.linkedin.com/in/sonny-malick-5700a8b6/"
+                    type: "Action.OpenUrl",
+                    title: "LinkedIn",
+                    url: "https://www.linkedin.com/in/sonny-malick-5700a8b6/"
                 },
                 {
-                    "type": "Action.OpenUrl",
-                    "title": "ZEC",
-                    "url": "https://directory.cisco.com/dir/reports/somalick"
+                    type: "Action.OpenUrl",
+                    title: "ZEC",
+                    url: "https://directory.cisco.com/dir/reports/somalick"
                 }
             ],
-            "horizontalAlignment": "Center"
+            horizontalAlignment: "Center"
         }
     ],
-    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.2"
 };
 // Buttons & Cards data for Training Links
 let cardBodyNHO = {
-    "type": "AdaptiveCard",
-    "body": [
+    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+    version: "1.2",
+    type: "AdaptiveCard",
+    body: [
         {
-            "type": "ColumnSet",
-            "columns": [
+            type: "ColumnSet",
+            columns: [
                 {
-                    "type": "Column",
-                    "items": [
+                    type: "Column",
+                    items: [
                         {
-                            "type": "TextBlock",
-                            "weight": "Bolder",
-                            "text": "NHO Training",
-                            "horizontalAlignment": "Center",
-                            "wrap": true,
-                            "size": "ExtraLarge",
-                            "spacing": "Small"
+                            type: "TextBlock",
+                            weight: "Bolder",
+                            text: "NHO Training",
+                            horizontalAlignment: "Center",
+                            wrap: true,
+                            size: "ExtraLarge",
+                            spacing: "Small"
                         }
                     ],
-                    "width": "stretch"
+                    width: "stretch"
                 }
             ]
         },
         {
-            "type": "ColumnSet",
-            "columns": [
+            type: "ColumnSet",
+            columns: [
                 {
-                    "type": "Column",
-                    "width": 65,
-                    "items": [
+                    type: "Column",
+                    width: 65,
+                    items: [
                         {
-                            "type": "TextBlock",
-                            "text": "Must be completed prior to first paycheck",
-                            "color": "Light",
-                            "spacing": "Small",
-                            "horizontalAlignment": "Center"
+                            type: "TextBlock",
+                            text: "Must be completed prior to first paycheck",
+                            color: "Light",
+                            spacing: "Small",
+                            horizontalAlignment: "Center"
                         },
                         {
-                            "type": "Image",
-                            "altText": "",
-                            "url": "https://s3.amazonaws.com/tinycards/image/98d84c9c624b3576d978c827d0780798",
-                            "size": "Medium",
-                            "horizontalAlignment": "Center"
+                            type: "Image",
+                            altText: "",
+                            url: "https://s3.amazonaws.com/tinycards/image/98d84c9c624b3576d978c827d0780798",
+                            size: "Medium",
+                            horizontalAlignment: "Center"
                         },
                         {
-                            "type": "ActionSet",
-                            "actions": [
+                            type: "ActionSet",
+                            actions: [
                                 {
-                                    "type": "Action.OpenUrl",
-                                    "title": "Responsible Social Media and Social Networking Training",
+                                    type: "Action.OpenUrl",
+                                    title": "Responsible Social Media and Social Networking Training",
                                     "url": "https://www.itpatraining.com/Responsible_Social_Networking"
                                 }
                             ],
@@ -576,103 +583,6 @@ framework.hears('threats', function (bot, trigger) {
     bot.say("Total amount of threats AMP has detected: " + threats[3]);
     bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
   });
-
-  threatsFirst = toString(threats[0]);
-  threatsSecond = toString(threats[1]);
-  threatsThird = toString(threats[2]);
-  threatsFourth = toString(threats[3]);
-  threatsFifth = toString(threats[4]);
-  let cardBodyThreats = {
-      "type": "AdaptiveCard",
-      "body": [
-          {
-              "type": "ColumnSet",
-              "columns": [
-                  {
-                      "type": "Column",
-                      "items": [
-                          {
-                              "type": "Image",
-                              "style": "Person",
-                              "url": "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
-                              "size": "Medium",
-                              "height": "50px"
-                          }
-                      ],
-                      "width": "auto"
-                  },
-                  {
-                      "type": "Column",
-                      "items": [
-                          {
-                              "type": "TextBlock",
-                              "text": "Cisco Advanced Malware Protection",
-                              "weight": "Lighter",
-                              "color": "Accent",
-                              "height": "stretch"
-                          }
-                      ],
-                      "width": "stretch"
-                  }
-              ]
-          },
-          {
-              "type": "TextBlock",
-              "text": "Total amount of malware threats detected:",
-              "color": "Accent"
-          },
-          {
-              "type": "TextBlock",
-              "text": "threatsFirst"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Total amount of scans completed with no detections:",
-              "spacing": "Medium",
-              "horizontalAlignment": "Left",
-              "color": "Accent"
-          },
-          {
-              "type": "TextBlock",
-              "text": "threatsSecond"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Total amount of scans completed with detections:",
-              "color": "Accent"
-          },
-          {
-              "type": "TextBlock",
-              "text": "threatsThird"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Total amount of threats AMP has detected:",
-              "color": "Accent"
-          },
-          {
-              "type": "TextBlock",
-              "text": "threatsFourth"
-          },
-          {
-              "type": "TextBlock",
-              "text": "Total amount of threats quarantined:",
-              "color": "Accent"
-          },
-          {
-              "type": "TextBlock",
-              "text": "threatsFifth"
-          }
-      ],
-      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-      "version": "1.2"
-  };
-  bot.sendCard({
-   // Fallback text for clients that don't render cards
-   markdown: "Network Scan Statistics",
-   attachments: cardBodyThreats
-  });
-
   subprocess.stderr.on('data', (data) => {
     console.log(`error: ${data}`);
   });
