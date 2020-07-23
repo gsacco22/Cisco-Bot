@@ -620,8 +620,6 @@ framework.hears('new hire', function (bot, trigger) {
 });
 
 framework.hears('ZELT', function (bot, trigger) {
-  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
-  console.log(bossResponse);
   responded = true;
   bot.sendCard(cardBodyBosses, 'This is customizable fallback text for clients that do not support buttons & cards');
 });
