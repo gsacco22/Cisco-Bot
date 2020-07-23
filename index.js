@@ -627,9 +627,10 @@ framework.hears('new hire', function (bot, trigger) {
 });
 
 framework.hears('ZELT', function (bot, trigger) {
-  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${personDisplayName}`;
+  responded = true;
+  let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${trigger.person.displayName}`;
   console.log(bossResponse);
-    bot.sendCard(cardBodyBosses, 'Contacts...');
+  bot.sendCard(cardBodyBosses, 'Contacts...');
 });
 
 framework.hears(/.*/, function (bot, trigger) {
