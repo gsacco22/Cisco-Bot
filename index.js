@@ -425,105 +425,63 @@ let cardBodyBosses = {
 let cardBodyNHO = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
     type: "AdaptiveCard",
-    version: "1.2",
-    body: [
+    version: "1.0",
+    body:
+      [{
+            type: "TextBlock",
+            text: "New Hire Orientation Training Requirements ",
+            horizontalAlignment: "Center",
+            size: "Medium",
+            weight: "Bolder",
+            color: "Accent"
+          },
+          {
+            type: "TextBlock",
+            text: "Welcome to Zeus Clothing! "
+          },
+          {
+            type: "TextBlock",
+            text: "Please follow the links to complete your required training!"
+        },
         {
-            type: "ColumnSet",
-            columns: [
+            type: "ActionSet",
+            actions: [
                 {
-                    type: "Column",
-                    items: [
-                        {
-                            type: "TextBlock",
-                            weight: "Bolder",
-                            text: "NHO Training",
-                            horizontalAlignment: "Center",
-                            wrap: true,
-                            size: "ExtraLarge",
-                            spacing: "Small"
-                        }
-                    ],
-                    width: "stretch"
+                    type: "Action.OpenUrl",
+                    title: "1",
+                    id: "FirstLink",
+                    url": "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
+                },
+                {
+                    type: "Action.OpenUrl",
+                    title: "2",
+                    id: "SecondLink",
+                    iconUrl: "",
+                    url: "https://www.richardson.com/increase-revenue-by-industry/retail-sales-training/"
+                },
+                {
+                    type: "Action.OpenUrl",
+                    title: "3",
+                    iconUrl: "",
+                    id: "ThirdLink",
+                    url: "https://whizbangtraining.com/retail-selling-videos/"
+                },
+                {
+                    type: "Action.OpenUrl",
+                    title: "4",
+                    id: "FourthLink",
+                    url: "https://thefriedmangroup.com/customer-engagement-sales-training/"
+                },
+                {
+                    type: "Action.OpenUrl",
+                    title: "5",
+                    url: "https://www.dol.gov/odep/topics/youth/softskills/Professionalism.pdf",
+                    id: "FifthLink"
                 }
             ]
-        },
-        {
-            type: "ColumnSet",
-            columns: [
-                {
-                    type: "Column",
-                    width: 65,
-                    items: [
-                        {
-                            type: "TextBlock",
-                            text: "Must be completed prior to first paycheck",
-                            color: "Light",
-                            spacing: "Small",
-                            horizontalAlignment: "Center"
-                        },
-                        {
-                            type: "Image",
-                            altText: "",
-                            url: "https://s3.amazonaws.com/tinycards/image/98d84c9c624b3576d978c827d0780798",
-                            size: "Medium",
-                            horizontalAlignment: "Center"
-                        },
-                        {
-                            type: "ActionSet",
-                            actions: [
-                                {
-                                    type: "Action.OpenUrl",
-                                    title: "Responsible Social Media and Social Networking Training",
-                                    url: "https://www.itpatraining.com/Responsible_Social_Networking"
-                                }
-                            ],
-                            id: "Responsible Social Media and Social Networking ",
-                            horizontalAlignment: "Center"
-                        }
-                    ]
-                }
-            ],
-            spacing: "Padding",
-            horizontalAlignment: "Center"
-        },
-        {
-            type: "Image",
-            altText: "",
-            url: "https://lh3.googleusercontent.com/proxy/eekWkMsMmLsOeKXqsyQptmv9uGJx-WDxGUH2ZNuxbUyq2seV8P4wAatz3CqfsVFpatHUtHUEktTBurHlH669zlugyRws5CpKKDtvaPPt4TGXT8idfAGEBCN8xYrvEmj6B7LCWA2BeWxKY5Q",
-            horizontalAlignment: "Center",
-            size: "Medium"
-        },
-        {
-            type: "ActionSet",
-            actions: [
-                {
-                    type: "Action.OpenUrl",
-                    title: "Retail Sales Training",
-                    url: "https://whizbangtraining.com/retail-selling-videos/"
-                }
-            ],
-            horizontalAlignment: "Center"
-        },
-        {
-            type: "Image",
-            altText: "",
-            url: "https://s3.amazonaws.com/tinycards/image/d8a6c3a4abdd2935828d078c06a61655",
-            size: "Medium",
-            horizontalAlignment: "Center"
-        },
-        {
-            type: "ActionSet",
-            actions: [
-                {
-                    type: "Action.OpenUrl",
-                    title: "Professionalism Training",
-                    url: "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
-                }
-            ],
-            horizontalAlignment: "Center"
         }
     ],
-};
+  };
 
 /* On mention with card example
 ex User enters @botname 'card me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
@@ -580,97 +538,6 @@ framework.hears('threats', function (bot, trigger) {
     bot.say("Total amount of threats AMP has detected: " + threats[3]);
     bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
   });
-  threatsFirst = toString(threats[0]);
-  threatsSecond = toString(threats[1]);
-  threatsThird = toString(threats[2]);
-  threatsFourth = toString(threats[3]);
-  threatsFifth = toString(threats[4]);
-  let cardBodyThreats = {
-      $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-      version: "1.2",
-      type: "AdaptiveCard",
-      body: [
-          {
-              type: "ColumnSet",
-              columns: [
-                  {
-                      type: "Column",
-                      items: [
-                          {
-                              type: "Image",
-                              style: "Person",
-                              url: "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
-                              size: "Medium",
-                              height: "50px"
-                          }
-                      ],
-                      width: "auto"
-                  },
-                  {
-                      type: "Column",
-                      items: [
-                          {
-                              type: "TextBlock",
-                              text: "Cisco Advanced Malware Protection",
-                              weight: "Lighter",
-                              color: "Accent",
-                              height: "stretch"
-                          }
-                      ],
-                      width: "stretch"
-                  }
-              ]
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of malware threats detected:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFirst"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of scans completed with no detections:",
-              spacing: "Medium",
-              horizontalAlignment: "Left",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsSecond"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of scans completed with detections:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsThird"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of threats AMP has detected:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFourth"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of threats quarantined:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFifth"
-          }
-      ],
-  };
-  bot.sendCard(cardBodyThreats, 'This is fallback text for clients that do not support buttons & cards');
   subprocess.stderr.on('data', (data) => {
     console.log(`error: ${data}`);
   });
@@ -731,7 +598,7 @@ framework.hears(/.*/, function (bot, trigger) {
 
 function sendHelp(bot) {
   bot.say("markdown", 'These are the commands I can respond to:', '\n\n ' +
-    '1. **framework**   (learn more about the Zeus Webex Bot framework) \n' +
+    '1. **framework**   (learn more about the Zeus Clothing Webex Bot framework) \n' +
     '2. **threats** (send you network scan statistics) \n' +
     '3. **new hire** (onboard yourself as a new member to the Zeus Clothing team) \n' +
     '4. **ZELT** (see contacts from the Zeus Executive Leadership Team) \n' +
