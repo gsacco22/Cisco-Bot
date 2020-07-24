@@ -423,66 +423,68 @@ let cardBodyBosses = {
 };
 // Buttons & Cards data for Training Links
 let cardBodyNHO = {
-    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-    type: "AdaptiveCard",
-    version: "1.0",
-    body:
-      [{
-            type: "TextBlock",
-            text: "New Hire Orientation Training Requirements ",
-            horizontalAlignment: "Center",
-            size: "Medium",
-            weight: "Bolder",
-            color: "Accent"
-          },
-          {
-            type: "TextBlock",
-            text: "Welcome to Zeus Clothing! "
-          },
-          {
-            type: "TextBlock",
-            text: "Please follow the links to complete your required training!"
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "altText": "",
+                            "url": "https://www.vippng.com/png/detail/396-3961185_document-png-circle-document-icon.png",
+                            "width": "50px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "NHO Training Requirements",
+                            "color": "Accent",
+                            "size": "Large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Follow the links to complete training!"
+                        }
+                    ]
+                }
+            ]
         },
         {
-            type: "ActionSet",
-            actions: [
+            "type": "ActionSet",
+            "actions": [
                 {
-                    type: "Action.OpenUrl",
-                    title: "1",
-                    id: "FirstLink",
-                    iconUrl: "",
-                    url: "https://www.monster.com/career-advice/article/what-it-takes-to-succeed-in-retail"
+                    "type": "Action.Submit",
+                    "title": "Security Training",
+                    "data": {
+                        "subscribe": true
+                    }
                 },
                 {
-                    type: "Action.OpenUrl",
-                    title: "2",
-                    id: "SecondLink",
-                    iconUrl: "",
-                    url: "https://www.richardson.com/increase-revenue-by-industry/retail-sales-training/"
+                    "type": "Action.OpenUrl",
+                    "title": "HRMS",
+                    "url": "https://google.com"
                 },
                 {
-                    type: "Action.OpenUrl",
-                    title: "3",
-                    iconUrl: "",
-                    id: "ThirdLink",
-                    url: "https://whizbangtraining.com/retail-selling-videos/"
-                },
-                {
-                    type: "Action.OpenUrl",
-                    title: "4",
-                    id: "FourthLink",
-                    url: "https://thefriedmangroup.com/customer-engagement-sales-training/"
-                },
-                {
-                    type: "Action.OpenUrl",
-                    title: "5",
-                    url: "https://www.dol.gov/odep/topics/youth/softskills/Professionalism.pdf",
-                    id: "FifthLink"
+                    "type": "Action.OpenUrl",
+                    "title": "Selling Training",
+                    "id": "",
+                    "url": "https://google.com"
                 }
             ]
         }
     ],
-  };
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}
 
 /* On mention with card example
 ex User enters @botname 'card me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
@@ -664,7 +666,7 @@ framework.hears('new hire', function (bot, trigger) {
   bot.sendCard(cardBodyNHO, 'This is fallback text for clients that do not support buttons & cards');
   bot.sendCard(cardBody, 'This is fallback text for clients that do not support buttons & cards');
   framework.on('attachmentAction', function (bot, trigger) {
-  bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
+  bot.say(`Got an attachment:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
   });
 });
 
