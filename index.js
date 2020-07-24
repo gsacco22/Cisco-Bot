@@ -365,7 +365,6 @@ let cardBodyNHO = {
                     }
                 },
                 {
-<<<<<<< HEAD
                     "type": "Action.OpenUrl",
                     "title": "HRMS",
                     "url": "https://google.com"
@@ -375,62 +374,12 @@ let cardBodyNHO = {
                     "title": "Selling Training",
                     "id": "",
                     "url": "https://google.com"
-=======
-                    type: "Action.OpenUrl",
-                    title: "4",
-                    iconUrl: "",
-                    id: "FourthLink",
-                    url: "https://thefriedmangroup.com/customer-engagement-sales-training/"
-                },
-                {
-                    type: "Action.OpenUrl",
-                    title: "5",
-                    iconUrl: "",
-                    url: "https://www.dol.gov/odep/topics/youth/softskills/Professionalism.pdf",
-                    id: "FifthLink"
->>>>>>> ff59d3edbdd71eb6de0d984e19b14cdda1607d3f
                 }
             ]
         }
     ],
-<<<<<<< HEAD
-    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
-}
-
-/* On mention with card example
-ex User enters @botname 'card me' phrase, the bot will produce a personalized card - https://developer.webex.com/docs/api/guides/cards
-*/
-framework.hears('card me', function (bot, trigger) {
-  console.log("someone asked for a card");
-  responded = true;
-  let avatar = trigger.person.avatar;
-
-  cardJSON.body[0].columns[0].items[0].url = (avatar) ? avatar : `${config.webhookUrl}/missing-avatar.jpg`;
-  cardJSON.body[0].columns[0].items[1].text = trigger.person.displayName;
-  cardJSON.body[0].columns[0].items[2].text = trigger.person.emails[0];
-  bot.sendCard(cardJSON, 'This is customizable fallback text for clients that do not support buttons & cards');
-});
-
-/* On mention reply example
-ex User enters @botname 'reply' phrase, the bot will post a threaded reply
-*/
-framework.hears('reply', function (bot, trigger) {
-  console.log("someone asked for a reply.  We will give them two.");
-  responded = true;
-  bot.reply(trigger.message,
-    'This is threaded reply sent using the `bot.reply()` method.',
-    'markdown');
-  var msg_attach = {
-    text: "This is also threaded reply with an attachment sent via bot.reply(): ",
-    file: 'https://media2.giphy.com/media/dTJd5ygpxkzWo/giphy-downsized-medium.gif'
-  };
-  bot.reply(trigger.message, msg_attach);
-});
-
-=======
   };
 // Buttons & Cards data for Network Threat Statistics
->>>>>>> ff59d3edbdd71eb6de0d984e19b14cdda1607d3f
 let cardBodyThreats = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
     version: "1.2",
