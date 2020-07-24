@@ -284,11 +284,10 @@ let cardBody = {
     }
 ],
 };
-
 // Buttons & Cards data for contacts to the ZELT
 let cardBodyBosses = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-    type: 'AdaptiveCard',
+    type: "AdaptiveCard",
     version: "1.2",
     body: [
         {
@@ -425,8 +424,8 @@ let cardBodyBosses = {
 // Buttons & Cards data for Training Links
 let cardBodyNHO = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-    version: "1.2",
     type: "AdaptiveCard",
+    version: "1.2",
     body: [
         {
             type: "ColumnSet",
@@ -581,6 +580,97 @@ framework.hears('threats', function (bot, trigger) {
     bot.say("Total amount of threats AMP has detected: " + threats[3]);
     bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
   });
+  threatsFirst = toString(threats[0]);
+  threatsSecond = toString(threats[1]);
+  threatsThird = toString(threats[2]);
+  threatsFourth = toString(threats[3]);
+  threatsFifth = toString(threats[4]);
+  let cardBodyThreats = {
+      $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+      version: "1.2",
+      type: "AdaptiveCard",
+      body: [
+          {
+              type: "ColumnSet",
+              columns: [
+                  {
+                      type: "Column",
+                      items: [
+                          {
+                              type: "Image",
+                              style: "Person",
+                              url: "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
+                              size: "Medium",
+                              height: "50px"
+                          }
+                      ],
+                      width: "auto"
+                  },
+                  {
+                      type: "Column",
+                      items: [
+                          {
+                              type: "TextBlock",
+                              text: "Cisco Advanced Malware Protection",
+                              weight: "Lighter",
+                              color: "Accent",
+                              height: "stretch"
+                          }
+                      ],
+                      width: "stretch"
+                  }
+              ]
+          },
+          {
+              type: "TextBlock",
+              text: "Total amount of malware threats detected:",
+              color: "Accent"
+          },
+          {
+              type: "TextBlock",
+              text: "threatsFirst"
+          },
+          {
+              type: "TextBlock",
+              text: "Total amount of scans completed with no detections:",
+              spacing: "Medium",
+              horizontalAlignment: "Left",
+              color: "Accent"
+          },
+          {
+              type: "TextBlock",
+              text: "threatsSecond"
+          },
+          {
+              type: "TextBlock",
+              text: "Total amount of scans completed with detections:",
+              color: "Accent"
+          },
+          {
+              type: "TextBlock",
+              text: "threatsThird"
+          },
+          {
+              type: "TextBlock",
+              text: "Total amount of threats AMP has detected:",
+              color: "Accent"
+          },
+          {
+              type: "TextBlock",
+              text: "threatsFourth"
+          },
+          {
+              type: "TextBlock",
+              text: "Total amount of threats quarantined:",
+              color: "Accent"
+          },
+          {
+              type: "TextBlock",
+              text: "threatsFifth"
+          }
+      ],
+  };
+  bot.sendCard(cardBodyThreats, 'This is fallback text for clients that do not support buttons & cards');
   subprocess.stderr.on('data', (data) => {
     console.log(`error: ${data}`);
   });
@@ -611,10 +701,10 @@ framework.hears('new hire', function (bot, trigger) {
   .catch(function(err) {
     console.log(err.message);
   });
-  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training.');
-  bot.sendCard(cardBodyNHO, 'This is customizable fallback text for clients that do not support buttons & cards');
-  bot.sendCard(cardBody, 'This is customizable fallback text for clients that do not support buttons & cards');
- framework.on('attachmentAction', function (bot, trigger) {
+  bot.say('I have alerted the admins that you are a new hire and added them to this chat to oversee your progress. \n Thank you for joining the Zeus Clothing Team. Please complete the following New Hire Orientation training requirements.');
+  bot.sendCard(cardBodyNHO, 'This is fallback text for clients that do not support buttons & cards');
+  bot.sendCard(cardBody, 'This is fallback text for clients that do not support buttons & cards');
+  framework.on('attachmentAction', function (bot, trigger) {
   bot.say(`Got an attachmentAction:\n${JSON.stringify(trigger.attachmentAction, null, 2)}`);
   });
 });
@@ -623,7 +713,7 @@ framework.hears('ZELT', function (bot, trigger) {
   responded = true;
   let bossResponse = `The following employee has requested contact info for the Executive Leadership Team: ${trigger.person.displayName}`;
   console.log(bossResponse);
-  bot.sendCard(cardBodyBosses, 'This is customizable fallback text for clients that do not support buttons & cards');
+  bot.sendCard(cardBodyBosses, 'This is fallback text for clients that do not support buttons & cards');
 });
 
 framework.hears(/.*/, function (bot, trigger) {
