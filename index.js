@@ -1,4 +1,4 @@
-//Webex Bot Starter - featuring the webex-node-bot-framework - https://www.npmjs.com/package/webex-node-bot-framework
+//Zeus Clothing Bot created by Michael Snider and Grace Sacco. Please
 
 var framework = require('webex-node-bot-framework');
 var webhook = require('webex-node-bot-framework/webhook');
@@ -52,13 +52,7 @@ framework.on('spawn', (bot, id, actorId) => {
   }
 });
 
-
-//Process incoming messages
-
 let responded = false;
-/* On mention with command
-ex User enters @botname help, the bot will write back in markdown
-*/
 framework.hears(/help|what can i (do|say)|what (can|do) you do/i, function (bot, trigger) {
   console.log(`someone needs help! They asked ${trigger.text}`);
   responded = true;
@@ -66,113 +60,14 @@ framework.hears(/help|what can i (do|say)|what (can|do) you do/i, function (bot,
     .then(() => sendHelp(bot))
     .catch((e) => console.error(`Problem in help hander: ${e.message}`));
 });
-
-/* On mention with command
-ex User enters @botname framework, the bot will write back in markdown
-*/
 framework.hears('framework', function (bot) {
   console.log("framework command received");
   responded = true;
-  bot.say("markdown", "This bot was created by Michael Snider (misnider@cisco.com) and Grace Sacco (grsacco@ciscoc.com). It was created for the 2020 Hackathon for Field Sales Engineer Interns. This bot contains uses such as seeing network scan statistics, automation of new hire onboarding, and contact resource automation. ");
+  bot.say("markdown", "This bot was created by Michael Snider (misnider@cisco.com) and Grace Sacco (grsacco@cisco.com). It was created for the 2020 Hackathon for Field Sales Engineer Interns. This bot contains uses such as seeing network scan statistics, automation of new hire onboarding, and contact resource automation. ");
 });
 
-/* On mention with command, using other trigger data, can use lite markdown formatting
-ex User enters @botname 'info' phrase, the bot will provide personal details
-*/
-framework.hears('info', function (bot, trigger) {
-  console.log("info command received");
-  responded = true;
-  //the "trigger" parameter gives you access to data about the user who entered the command
-  let personAvatar = trigger.person.avatar;
-  let personEmail = trigger.person.emails[0];
-  let personDisplayName = trigger.person.displayName;
-  let outputString = `Here is your personal information: \n\n\n **Name:** ${personDisplayName}  \n\n\n **Email:** ${personEmail} \n\n\n **Avatar URL:** ${personAvatar}`;
-  bot.say("markdown", outputString);
-});
 
-/* On mention with bot data
-ex User enters @botname 'space' phrase, the bot will provide details about that particular space
-*/
 
-framework.hears('space', function (bot) {
-  console.log("space. the final frontier");
-  responded = true;
-  let roomTitle = bot.room.title;
-  let spaceID = bot.room.id;
-  let roomType = bot.room.type;
-
-  let outputString = `The title of this space: ${roomTitle} \n\n The roomID of this space: ${spaceID} \n\n The type of this space: ${roomType}`;
-
-  console.log(outputString);
-  bot.say("markdown", outputString)
-    .catch((e) => console.error(`bot.say failed: ${e.message}`));
-
-});
-
-/*
-   Say hi to every member in the space
-   This demonstrates how developers can access the webex
-   sdk to call any Webex API.  API Doc: https://webex.github.io/webex-js-sdk/api/
-*/
-framework.hears("say hi to everyone", function (bot) {
-  console.log("say hi to everyone.  Its a party");
-  responded = true;
-  // Use the webex SDK to get the list of users in this space
-  bot.webex.memberships.list({roomId: bot.room.id})
-    .then((memberships) => {
-      for (const member of memberships.items) {
-        if (member.personId === bot.person.id) {
-          // Skip myself!
-          continue;
-        }
-        let displayName = (member.personDisplayName) ? member.personDisplayName : member.personEmail;
-        bot.say(`Hello ${displayName}`);
-      }
-    })
-    .catch((e) => {
-      console.error(`Call to sdk.memberships.get() failed: ${e.messages}`);
-      bot.say('Hello everybody!');
-    });
-});
-
-// Buttons & Cards data
-let cardJSON = {
-  $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-  type: 'AdaptiveCard',
-  version: '1.0',
-  body:
-    [{
-      type: 'ColumnSet',
-      columns:
-        [{
-          type: 'Column',
-          width: '5',
-          items:
-            [{
-              type: 'Image',
-              url: 'Your avatar appears here!',
-              size: 'large',
-              horizontalAlignment: "Center",
-              style: 'person'
-            },
-            {
-              type: 'TextBlock',
-              text: 'Your name will be here!',
-              size: 'medium',
-              horizontalAlignment: "Center",
-              weight: 'Bolder'
-            },
-            {
-              type: 'TextBlock',
-              text: 'And your email goes here!',
-              size: 'small',
-              horizontalAlignment: "Center",
-              isSubtle: true,
-              wrap: false
-            }]
-        }]
-    }]
-};
 // Buttons & Cards data for User Info Input
 let cardBody = {
   $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -470,6 +365,7 @@ let cardBodyNHO = {
                     }
                 },
                 {
+<<<<<<< HEAD
                     "type": "Action.OpenUrl",
                     "title": "HRMS",
                     "url": "https://google.com"
@@ -479,10 +375,25 @@ let cardBodyNHO = {
                     "title": "Selling Training",
                     "id": "",
                     "url": "https://google.com"
+=======
+                    type: "Action.OpenUrl",
+                    title: "4",
+                    iconUrl: "",
+                    id: "FourthLink",
+                    url: "https://thefriedmangroup.com/customer-engagement-sales-training/"
+                },
+                {
+                    type: "Action.OpenUrl",
+                    title: "5",
+                    iconUrl: "",
+                    url: "https://www.dol.gov/odep/topics/youth/softskills/Professionalism.pdf",
+                    id: "FifthLink"
+>>>>>>> ff59d3edbdd71eb6de0d984e19b14cdda1607d3f
                 }
             ]
         }
     ],
+<<<<<<< HEAD
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
 }
 
@@ -516,6 +427,10 @@ framework.hears('reply', function (bot, trigger) {
   bot.reply(trigger.message, msg_attach);
 });
 
+=======
+  };
+// Buttons & Cards data for Network Threat Statistics
+>>>>>>> ff59d3edbdd71eb6de0d984e19b14cdda1607d3f
 let cardBodyThreats = {
     $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
     version: "1.2",
@@ -692,16 +607,11 @@ framework.hears(/.*/, function (bot, trigger) {
 
 function sendHelp(bot) {
   bot.say("markdown", 'These are the commands I can respond to:', '\n\n ' +
-    '1. **framework**   (learn more about the Zeus Clothing Webex Bot framework) \n' +
+    '1. **framework** (learn more about the Zeus Clothing Webex Bot framework) \n' +
     '2. **threats** (send you network scan statistics) \n' +
     '3. **new hire** (onboard yourself as a new member to the Zeus Clothing team) \n' +
     '4. **ZELT** (see contacts from the Zeus Executive Leadership Team) \n' +
-    '5. **info**  (get your personal details) \n' +
-    '6. **space**  (get details about this space) \n' +
-    '7. **card me** (a cool card!) \n' +
-    '8. **say hi to everyone** (everyone gets a greeting using a call to the Webex SDK) \n' +
-    '9. **reply** (have bot reply to your message) \n' +
-    '10. **help** (what you are reading now)' );
+    '5. **help** (what you are reading now)' );
 }
 
 
