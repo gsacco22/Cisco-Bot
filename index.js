@@ -555,7 +555,91 @@ framework.hears('reply', function (bot, trigger) {
   bot.reply(trigger.message, msg_attach);
 });
 
-
+let cardBodyThreats = {
+    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+    version: "1.2",
+    type: "AdaptiveCard",
+    body: [
+        {
+            type: "ColumnSet",
+            columns: [
+                {
+                    type: "Column",
+                    items: [
+                        {
+                            type: "Image",
+                            style: "Person",
+                            url: "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
+                            size: "Medium",
+                            height: "50px"
+                        }
+                    ],
+                    width: "auto"
+                },
+                {
+                    type: "Column",
+                    items: [
+                        {
+                            type: "TextBlock",
+                            text: "Cisco Advanced Malware Protection",
+                            weight: "Lighter",
+                            color: "Accent",
+                            height: "stretch"
+                        }
+                    ],
+                    width: "stretch"
+                }
+            ]
+        },
+        {
+            type: "TextBlock",
+            text: "Total amount of malware threats detected:",
+            color: "Accent"
+        },
+        {
+            type: "TextBlock",
+            text: "threatsFirst"
+        },
+        {
+            type: "TextBlock",
+            text: "Total amount of scans completed with no detections:",
+            spacing: "Medium",
+            horizontalAlignment: "Left",
+            color: "Accent"
+        },
+        {
+            type: "TextBlock",
+            text: "threatsSecond"
+        },
+        {
+            type: "TextBlock",
+            text: "Total amount of scans completed with detections:",
+            color: "Accent"
+        },
+        {
+            type: "TextBlock",
+            text: "threatsThird"
+        },
+        {
+            type: "TextBlock",
+            text: "Total amount of threats AMP has detected:",
+            color: "Accent"
+        },
+        {
+            type: "TextBlock",
+            text: "threatsFourth"
+        },
+        {
+            type: "TextBlock",
+            text: "Total amount of threats quarantined:",
+            color: "Accent"
+        },
+        {
+            type: "TextBlock",
+            text: "threatsFifth"
+        }
+    ],
+};
 
 /**
  * Run python script
@@ -571,106 +655,27 @@ ex User enters @botname 'threats' phrase, the bot will deliver the number of thr
 framework.hears('threats', function (bot, trigger) {
   console.log("someone asked for threats");
   responded = true;
+  threats = []
   const subprocess = runScript()
   subprocess.stdout.on('data', (data) => {
     threats = data.toString('utf8').split("|")
-    bot.say("Total amount of malware threats AMP has detected: " + threats[0]);
-    bot.say("Total amount of scans completed with no detections from AMP: " + threats[1]);
-    bot.say("Total amount of scans completed with detections from AMP: " + threats[2]);
-    bot.say("Total amount of threats AMP has detected: " + threats[3]);
-    bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
+    cardBodyThreats.body[2].text = threats[0];
+    cardBodyThreats.body[4].text = threats[1];
+    cardBodyThreats.body[6].text = threats[2];
+    cardBodyThreats.body[8].text = threats[3];
+    cardBodyThreats.body[10].text = threats[4];
+    bot.sendCard(cardBodyThreats, 'This is fallback text for clients that do not support buttons & cards');
+    // bot.say("Total amount of malware threats AMP has detected: " + threats[0]);
+    // bot.say("Total amount of scans completed with no detections from AMP: " + threats[1]);
+    // bot.say("Total amount of scans completed with detections from AMP: " + threats[2]);
+    // bot.say("Total amount of threats AMP has detected: " + threats[3]);
+    // bot.say("Total amount of threats AMP has quarantined: " + threats[4]);
   });
-  threatsFirst = toString(threats[0]);
-  threatsSecond = toString(threats[1]);
-  threatsThird = toString(threats[2]);
-  threatsFourth = toString(threats[3]);
-  threatsFifth = toString(threats[4]);
-  let cardBodyThreats = {
-      $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-      version: "1.2",
-      type: "AdaptiveCard",
-      body: [
-          {
-              type: "ColumnSet",
-              columns: [
-                  {
-                      type: "Column",
-                      items: [
-                          {
-                              type: "Image",
-                              style: "Person",
-                              url: "https://www.cisco.com/c/en_sg/products/security/amp-for-endpoints/index/_jcr_content/Grid/category_atl_946f/layout-category-atl/blade_60f8/bladeContents/halves_35d6/H-Half-1/spotlight_3c0a/image.img.png/1561962344096.png",
-                              size: "Medium",
-                              height: "50px"
-                          }
-                      ],
-                      width: "auto"
-                  },
-                  {
-                      type: "Column",
-                      items: [
-                          {
-                              type: "TextBlock",
-                              text: "Cisco Advanced Malware Protection",
-                              weight: "Lighter",
-                              color: "Accent",
-                              height: "stretch"
-                          }
-                      ],
-                      width: "stretch"
-                  }
-              ]
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of malware threats detected:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFirst"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of scans completed with no detections:",
-              spacing: "Medium",
-              horizontalAlignment: "Left",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsSecond"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of scans completed with detections:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsThird"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of threats AMP has detected:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFourth"
-          },
-          {
-              type: "TextBlock",
-              text: "Total amount of threats quarantined:",
-              color: "Accent"
-          },
-          {
-              type: "TextBlock",
-              text: "threatsFifth"
-          }
-      ],
-  };
-  bot.sendCard(cardBodyThreats, 'This is fallback text for clients that do not support buttons & cards');
+//   console.log(threats)
+  
+  
+
+  
   subprocess.stderr.on('data', (data) => {
     console.log(`error: ${data}`);
   });
