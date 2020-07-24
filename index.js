@@ -450,7 +450,7 @@ let cardBodyNHO = {
                     type: "Action.OpenUrl",
                     title: "1",
                     id: "FirstLink",
-                    url": "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
+                    url: "https://www.monster.ca/career-advice/article/10-ways-to-be-professional-at-work-canada"
                 },
                 {
                     type: "Action.OpenUrl",
